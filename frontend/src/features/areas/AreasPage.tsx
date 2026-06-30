@@ -23,7 +23,11 @@ export default function AreasPage() {
   const [saving, setSaving] = useState(false);
 
   // Tabs
-  const [activeTab, setActiveTab] = useState<'datos' | 'actividades'>('datos');
+  const [activeTab, setActiveTab] = useState<'datos' | 'actividades' | 'integrantes'>('datos');
+
+  // Integrantes state
+  const [allUsers, setAllUsers] = useState<{id: number, name: string}[]>([]);
+  const [selectedUsers, setSelectedUsers] = useState<number[]>([]);
 
   // Form state
   const [form, setForm] = useState({
@@ -78,6 +82,8 @@ export default function AreasPage() {
     try {
       const formsRes = await api.get('/formularios?per_page=100');
       setAllForms(formsRes.data.data || []);
+      const usersRes = await api.get('/usuarios?per_page=100');
+      setAllUsers(usersRes.data.data || []);
     } catch (e) {
       console.error('Error fetching dependencies', e);
     }
@@ -100,7 +106,9 @@ export default function AreasPage() {
       tipo_area: '', nivel_riesgo: 'medio'
     });
     setActividades([]);
+    setSelectedUsers([]);
     setActiveTab('datos');
+    fetchDependencies();
     setShowModal(true);
   };
 
@@ -120,6 +128,10 @@ export default function AreasPage() {
 
     try {
       await loadActividades(area.id);
+      const res = await api.get(`/areas/${area.id}`);
+      if (res.data.data.usuarios) {
+        setSelectedUsers(res.data.data.usuarios.map((u: any) => u.id));
+      }
     } catch (e) {
       console.error('Error fetching area details', e);
     }
@@ -130,10 +142,16 @@ export default function AreasPage() {
     setSaving(true);
 
     try {
-      if (editingArea) {
-        await api.put(`/areas/${editingArea.id}`, form);
+      let areaId = editingArea?.id;
+      if (areaId) {
+        await api.put(`/areas/${areaId}`, form);
       } else {
-        await api.post('/areas', form);
+        const res = await api.post('/areas', form);
+        areaId = res.data.data.id;
+      }
+
+      if (areaId) {
+        await api.post(`/areas/${areaId}/asignar-usuarios`, { user_ids: selectedUsers });
       }
 
       setShowModal(false);
@@ -302,6 +320,16 @@ export default function AreasPage() {
                 </div>
               </div>
 
+              {(area.usuarios && area.usuarios.length > 0) && (
+                <div style={{ marginTop: '0.5rem', display: 'flex', flexWrap: 'wrap', gap: '0.25rem' }}>
+                  {area.usuarios.map((u: any) => (
+                    <span key={`u-${u.id}`} className="badge badge-info" style={{ fontSize: '0.7rem' }}>
+                      👤 {u.name}
+                    </span>
+                  ))}
+                </div>
+              )}
+
               {/* Actividades preview */}
               {(area.actividades && area.actividades.length > 0) && (
                 <div style={{ marginTop: '1rem' }}>
@@ -321,7 +349,23 @@ export default function AreasPage() {
                           {act.formularios && act.formularios.length > 0 && (
                             <div style={{ display: 'flex', gap: '0.25rem', marginTop: '0.25rem', flexWrap: 'wrap' }}>
                               {act.formularios.map(f => (
-                                <span key={f.id} className="badge badge-neutral" style={{ fontSize: '0.65rem' }}>📄 {f.codigo}</span>
+                                <button
+                                  key={f.id} 
+                                  className="badge badge-primary" 
+                                  style={{ fontSize: '0.65rem', cursor: 'pointer', border: 'none', display: 'flex', alignItems: 'center', gap: '0.25rem' }}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    const code = (f.codigo || '').toUpperCase().replace(/[-_ ]/g, '');
+                                    let route = `/formularios/${f.id}/llenar`;
+                                    if (code.includes('SSTFOR034') || code.includes('034')) route = `/formularios/${f.id}/llenar/ats034`;
+                                    else if (code.includes('SSTFOR067') || code.includes('067')) route = `/formularios/${f.id}/llenar/for067`;
+                                    else if (code.includes('FORMATO05') || code.includes('FOR05') || code.includes('FORMAT05') || code.includes('05')) route = `/formularios/${f.id}/llenar/formato05`;
+                                    else if (code.includes('SSTFOR017') || code.includes('017')) route = `/formularios/${f.id}/llenar/for017`;
+                                    window.location.href = route;
+                                  }}
+                                >
+                                  📄 {f.codigo} (Llenar)
+                                </button>
                               ))}
                             </div>
                           )}
@@ -365,6 +409,9 @@ export default function AreasPage() {
               <div className="tabs-container" style={{ margin: 0, borderBottom: '1px solid var(--border)', padding: '0 1.5rem' }}>
                 <button type="button" className={`tab-btn ${activeTab === 'datos' ? 'active' : ''}`} onClick={() => setActiveTab('datos')}>
                   Datos Generales
+                </button>
+                <button type="button" className={`tab-btn ${activeTab === 'integrantes' ? 'active' : ''}`} onClick={() => setActiveTab('integrantes')}>
+                  Integrantes
                 </button>
                 {editingArea && (
                   <button type="button" className={`tab-btn ${activeTab === 'actividades' ? 'active' : ''}`} onClick={() => setActiveTab('actividades')}>
@@ -445,6 +492,29 @@ export default function AreasPage() {
                       </div>
                     </div>
                   </form>
+                )}
+
+                {activeTab === 'integrantes' && (
+                  <div className="animate-fade-in">
+                    <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem', fontSize: '0.875rem' }}>
+                      Selecciona los usuarios (Supervisores/Prevencionistas) que tendrán acceso a este sector.
+                    </p>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', maxHeight: '300px', overflowY: 'auto' }}>
+                      {allUsers.map(u => (
+                        <label key={u.id} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem', border: '1px solid var(--border)', borderRadius: '0.5rem', cursor: 'pointer', background: selectedUsers.includes(u.id) ? 'var(--primary-50)' : 'transparent' }}>
+                          <input 
+                            type="checkbox" 
+                            checked={selectedUsers.includes(u.id)}
+                            onChange={(e) => {
+                              if (e.target.checked) setSelectedUsers([...selectedUsers, u.id]);
+                              else setSelectedUsers(selectedUsers.filter(id => id !== u.id));
+                            }}
+                          />
+                          {u.name}
+                        </label>
+                      ))}
+                    </div>
+                  </div>
                 )}
 
                 {activeTab === 'actividades' && editingArea && (
@@ -562,10 +632,10 @@ export default function AreasPage() {
               <button type="button" className="btn btn-ghost" onClick={() => setShowModal(false)}>
                 Cerrar
               </button>
-              {activeTab === 'datos' && (
-                <button type="submit" form="area-form" className="btn btn-primary" disabled={saving}>
+              {(activeTab === 'datos' || activeTab === 'integrantes') && (
+                <button type="button" onClick={handleSubmit} className="btn btn-primary" disabled={saving}>
                   {saving ? <Loader2 size={16} className="spin" /> : null}
-                  {editingArea ? 'Guardar Datos' : 'Crear Sector'}
+                  {editingArea ? 'Guardar Cambios' : 'Crear Sector'}
                 </button>
               )}
             </div>

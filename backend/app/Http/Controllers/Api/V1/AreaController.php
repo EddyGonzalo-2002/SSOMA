@@ -48,7 +48,8 @@ class AreaController extends Controller
             }
         }
 
-        $areas = $query->withCount(['formularios', 'usuarios'])
+        $areas = $query->with(['actividades.formularios:id,codigo,nombre'])
+                       ->withCount(['formularios', 'usuarios'])
                        ->orderBy('nombre')
                        ->paginate($request->per_page ?? 15);
 
@@ -163,7 +164,7 @@ class AreaController extends Controller
             'user_ids.*' => 'exists:users,id',
         ]);
 
-        $area->usuarios()->syncWithoutDetaching($validated['user_ids']);
+        $area->usuarios()->sync($validated['user_ids']);
 
         return response()->json([
             'message' => __('messages.users_assigned'),
