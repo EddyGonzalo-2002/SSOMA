@@ -33,8 +33,8 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 # Exponer el puerto 80 (Render lo detectará automáticamente)
 EXPOSE 80
 
-# Script de inicio: crear link de storage, correr migraciones e iniciar Apache
-RUN echo '#!/bin/bash\nphp artisan storage:link\nphp artisan migrate --force\napache2-foreground' > /usr/local/bin/start.sh
+# Script de inicio: crear link de storage, generar .env, correr migraciones e iniciar Apache
+RUN echo '#!/bin/bash\nenv | grep -v "^_" > /var/www/html/.env\nphp artisan storage:link\nphp artisan migrate --force\napache2-foreground' > /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 
 CMD ["/usr/local/bin/start.sh"]
