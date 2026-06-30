@@ -48,9 +48,11 @@ class FormularioController extends Controller
                     $q->where('users.id', $user->id);
                 });
             } else {
-                // Supervisor y otros ven formularios de su área, o de su proyecto si el formulario no tiene área
+                // Supervisor y otros ven formularios de su área, o vinculados a actividades de su área, o de su proyecto si es global
                 $query->where(function ($q) use ($user) {
                     $q->whereHas('area.usuarios', function ($sq) use ($user) {
+                        $sq->where('users.id', $user->id);
+                    })->orWhereHas('actividades.area.usuarios', function ($sq) use ($user) {
                         $sq->where('users.id', $user->id);
                     })->orWhere(function ($sq) use ($user) {
                         $sq->whereNull('area_id')
