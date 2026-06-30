@@ -19,7 +19,7 @@ class DemoFormsSeeder extends Seeder
                 'nombre' => 'ATS - Análisis de Trabajo Seguro',
                 'descripcion' => 'Formato para evaluar riesgos antes de iniciar una labor (SST-FOR-034).',
                 'estado' => 'publicado',
-                'requiere_geolocalizacion' => true,
+                'requiere_geolocalizacion' => false,
                 'requiere_participantes' => true,
             ]
         );

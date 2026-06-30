@@ -88,6 +88,9 @@ class RespuestaController extends Controller
             'participantes.*.cargo' => 'nullable|string|max:100',
             'participantes.*.empresa' => 'nullable|string|max:255',
             'participantes.*.firma' => 'nullable|string', // base64
+
+            // Datos adicionales (para formularios personalizados)
+            'datos' => 'nullable|array',
         ]);
 
         $formulario = Formulario::findOrFail($validated['formulario_id']);

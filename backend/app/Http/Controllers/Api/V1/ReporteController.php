@@ -24,29 +24,31 @@ class ReporteController extends Controller
         ]);
 
         $codigo = $respuesta->formulario->codigo;
-        $viewName = 'pdf.' . str_replace('-', '_', $codigo);
+        $codigoFormateado = str_replace('-', '_', $codigo);
+        $posiblesVistas = [
+            'pdf.' . $codigoFormateado,
+            'pdf.SST_' . $codigoFormateado,
+        ];
 
-        // Map the details into a simple key-value array for easier access in blade
+        $vistaFinal = 'pdf.generic';
+        foreach ($posiblesVistas as $vista) {
+            if (View::exists($vista)) {
+                $vistaFinal = $vista;
+                break;
+            }
+        }
+
         $datos = is_array($respuesta->datos) ? $respuesta->datos : [];
         foreach ($respuesta->detalles as $detalle) {
             $nombreCampo = $detalle->campo->nombre_campo;
             $datos[$nombreCampo] = $detalle->valor;
         }
 
-        // Check if the specific view exists, otherwise fallback to generic
-        if (View::exists($viewName)) {
-            $pdf = Pdf::loadView($viewName, [
-                'respuesta' => $respuesta,
-                'formulario' => $respuesta->formulario,
-                'datos' => $datos,
-            ])->setPaper('A4', 'portrait');
-        } else {
-            $pdf = Pdf::loadView('pdf.generic', [
-                'respuesta' => $respuesta,
-                'formulario' => $respuesta->formulario,
-                'datos' => $datos,
-            ])->setPaper('A4', 'portrait');
-        }
+        $pdf = Pdf::loadView($vistaFinal, [
+            'respuesta' => $respuesta,
+            'formulario' => $respuesta->formulario,
+            'datos' => $datos,
+        ])->setPaper('A4', 'portrait');
 
         $filename = $codigo . '_' . $respuesta->id . '.pdf';
         
