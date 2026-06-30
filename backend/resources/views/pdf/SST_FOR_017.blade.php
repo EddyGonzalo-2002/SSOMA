@@ -57,8 +57,8 @@
         <tr><td class="bold bg-light">Tipo de Carga y/o Agente extintor:</td><td>{{ mb_strtoupper($datos['tipo_carga'] ?? '') }}</td></tr>
         <tr><td class="bold bg-light">Peso:</td><td>{{ $datos['peso'] ?? '' }}</td></tr>
         <tr><td class="bold bg-light">Ubicación exacta:</td><td>{{ mb_strtoupper($datos['ubicacion'] ?? '') }}</td></tr>
-        <tr><td class="bold bg-light">Vencimiento de Prueba Hidrostatica:</td><td>{{ $datos['venc_hidro'] ? \Carbon\Carbon::parse($datos['venc_hidro'])->format('d/m/Y') : '' }}</td></tr>
-        <tr><td class="bold bg-light">Vencimiento de Recarga/Mantenimiento:</td><td>{{ $datos['venc_recarga'] ? \Carbon\Carbon::parse($datos['venc_recarga'])->format('d/m/Y') : '' }}</td></tr>
+        <tr><td class="bold bg-light">Vencimiento de Prueba Hidrostatica:</td><td>{{ !empty($datos['venc_hidro']) ? \Carbon\Carbon::parse($datos['venc_hidro'])->format('d/m/Y') : '' }}</td></tr>
+        <tr><td class="bold bg-light">Vencimiento de Recarga/Mantenimiento:</td><td>{{ !empty($datos['venc_recarga']) ? \Carbon\Carbon::parse($datos['venc_recarga'])->format('d/m/Y') : '' }}</td></tr>
     </table>
 
     <!-- IMAGEN EXTINTOR -->
