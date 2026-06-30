@@ -1,0 +1,52 @@
+.signature-pad-container {
+  position: relative;
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: white;
+  touch-action: none; /* Prevents scrolling while signing on mobile */
+  transition: border-color var(--transition-base);
+}
+
+.signature-pad-container:hover {
+  border-color: var(--primary-400);
+}
+
+.signature-canvas {
+  cursor: crosshair;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.clear-signature-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow-sm);
+  z-index: 10;
+}
+
+.clear-signature-btn:hover {
+  background: var(--bg-secondary) !important;
+  color: var(--danger-500);
+}
+
+.signature-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-tertiary);
+  font-size: 1.25rem;
+  font-style: italic;
+  opacity: 0.5;
+  z-index: 5;
+}
+
+.pointer-events-none {
+  pointer-events: none;
+}

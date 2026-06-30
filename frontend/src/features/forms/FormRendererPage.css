@@ -1,0 +1,168 @@
+.form-renderer {
+  padding-bottom: var(--space-12);
+}
+
+.renderer-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  gap: var(--space-4);
+  color: var(--text-tertiary);
+}
+
+.renderer-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.renderer-card {
+  padding: var(--space-6) var(--space-8);
+}
+
+.form-section {
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.section-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+}
+
+.section-header .section-title {
+  margin-bottom: 0;
+}
+
+/* GPS Controls */
+.gps-controls {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+.gps-status {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.gps-status.success {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success-600);
+}
+
+.gps-status.warning {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--warning-600);
+}
+
+/* Dynamic Fields Layout */
+.dynamic-fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Participantes */
+.empty-participantes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--border-color);
+  color: var(--text-tertiary);
+  gap: var(--space-2);
+}
+
+.participantes-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.participante-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  padding: var(--space-4);
+}
+
+.participante-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.participante-header h4 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.participante-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.participante-fields .input-group {
+  flex: 1;
+  min-width: 150px;
+  margin-bottom: 0;
+}
+
+.participante-signature label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: var(--space-2);
+  color: var(--text-secondary);
+}
+
+.renderer-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-4);
+  padding-top: var(--space-4);
+}
+
+@media (max-width: 640px) {
+  .renderer-card {
+    padding: var(--space-4);
+  }
+  
+  .gps-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .participante-fields {
+    flex-direction: column;
+  }
+}

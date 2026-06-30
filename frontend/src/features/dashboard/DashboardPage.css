@@ -1,0 +1,138 @@
+/* ── Dashboard Page ────────────────────────────────────────────── */
+
+.dashboard-page {
+  max-width: 1400px;
+}
+
+/* ── Content Grid ────────────────────────────────── */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: var(--space-4);
+}
+
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dashboard-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-5);
+}
+
+.dashboard-card-header h3 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* ── Activity List ───────────────────────────────── */
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.activity-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.activity-icon-green {
+  background: rgba(22, 163, 74, 0.1);
+  color: var(--primary-600);
+}
+
+.activity-icon-blue {
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--accent-600);
+}
+
+.activity-icon-orange {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--warning-600);
+}
+
+.activity-content p {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.activity-content strong {
+  font-weight: 600;
+}
+
+.activity-time {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+}
+
+/* ── Approval Stats ──────────────────────────────── */
+.approval-stats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.approval-stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.approval-stat-bar {
+  height: 8px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.approval-stat-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.approval-fill-green {
+  background: linear-gradient(90deg, var(--primary-400), var(--primary-500));
+}
+
+.approval-fill-orange {
+  background: linear-gradient(90deg, var(--warning-400), var(--warning-500));
+}
+
+.approval-fill-red {
+  background: linear-gradient(90deg, var(--danger-400), var(--danger-500));
+}
+
+.approval-stat-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.approval-stat-label {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+}
+
+.approval-stat-value {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}

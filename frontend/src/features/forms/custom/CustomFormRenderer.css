@@ -1,0 +1,501 @@
+/* ===================================================
+   Custom Form Renderer – Estilos Compartidos
+   Para: ATS034, For067, Formato05
+   =================================================== */
+
+/* ── Loading / Success ─────────────────────────── */
+.cfr-loading,
+.cfr-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 1rem;
+}
+
+/* ── Page layout ───────────────────────────────── */
+.cfr-page {
+  padding: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.cfr-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.cfr-header h1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.cfr-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 0.15rem 0 0;
+}
+
+/* ── Card ──────────────────────────────────────── */
+.cfr-card {
+  background: var(--surface-1);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+}
+
+/* ── Section titles ────────────────────────────── */
+.cfr-section-title {
+  padding: 0.6rem 1rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.cfr-blue {
+  background-color: #4bd3e6;
+  color: #000;
+}
+
+/* ── Field groups ──────────────────────────────── */
+.cfr-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 1.25rem;
+  padding: 1rem;
+}
+
+.cfr-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.75rem 1.25rem;
+  padding: 1rem;
+}
+
+.cfr-grid-4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 0.75rem 1.25rem;
+  padding: 0 1rem 1rem;
+}
+
+.cfr-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.cfr-field label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.cfr-field-readonly {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0;
+}
+
+.cfr-field-readonly label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.cfr-readonly-val {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  padding: 0.5rem 0.75rem;
+  background: var(--surface-2);
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+/* ── Tables ────────────────────────────────────── */
+.cfr-eval-table-wrapper,
+.cfr-ats-table-wrapper {
+  overflow-x: auto;
+  padding: 0 1rem 1rem;
+}
+
+.cfr-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.cfr-table th {
+  background: var(--surface-2);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 0.6rem;
+  font-weight: 700;
+  text-align: center;
+  font-size: 0.78rem;
+}
+
+.cfr-table td {
+  border: 1px solid var(--border-color);
+  padding: 0.4rem 0.6rem;
+  vertical-align: top;
+}
+
+/* Evaluation table */
+.cfr-eval-text {
+  font-size: 0.78rem;
+  line-height: 1.4;
+  vertical-align: middle;
+}
+
+.cfr-eval-sel {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.cfr-mini-select {
+  width: 62px;
+  font-size: 0.8rem;
+  padding: 0.25rem;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  background: var(--surface-1);
+  color: var(--text-primary);
+  text-align: center;
+}
+
+/* ATS rows */
+.cfr-cell-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  resize: vertical;
+  min-height: 50px;
+  font-family: inherit;
+  padding: 0.2rem;
+  outline: none;
+}
+
+.cfr-cell-input:focus {
+  background: var(--surface-2);
+  border-radius: 4px;
+}
+
+/* ── Permisos / Tipo checkboxes ────────────────── */
+.cfr-permisos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.6rem;
+  padding: 1rem;
+}
+
+.cfr-permiso-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  border: 1.5px solid var(--border-color);
+  cursor: pointer;
+  font-size: 0.83rem;
+  transition: all 0.2s;
+  background: var(--surface-1);
+  color: var(--text-primary);
+}
+
+.cfr-permiso-item input[type="checkbox"] {
+  display: none;
+}
+
+.cfr-permiso-check {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  border: 2px solid var(--border-color);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.cfr-permiso-item.active {
+  border-color: var(--primary-500);
+  background: color-mix(in srgb, var(--primary-500) 10%, transparent);
+}
+
+.cfr-permiso-item.active .cfr-permiso-check {
+  background: var(--primary-500);
+  border-color: var(--primary-500);
+}
+
+.cfr-permiso-item.active .cfr-permiso-check::after {
+  content: '✓';
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* ── Comprometido ──────────────────────────────── */
+.cfr-comprometido {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.cfr-comprometido-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 2rem;
+  border-radius: 8px;
+  border: 2px solid var(--border-color);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+
+.cfr-comprometido-btn input { display: none; }
+
+.cfr-comprometido-btn.active-yes {
+  border-color: var(--success-500);
+  background: color-mix(in srgb, var(--success-500) 12%, transparent);
+  color: var(--success-500);
+}
+
+.cfr-comprometido-btn.active-no {
+  border-color: var(--danger-500);
+  background: color-mix(in srgb, var(--danger-500) 12%, transparent);
+  color: var(--danger-500);
+}
+
+/* ── Participantes ─────────────────────────────── */
+.cfr-participantes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.cfr-help-text {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.cfr-empty-participantes {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+}
+
+.cfr-participantes-list {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cfr-participante-card {
+  border: 1.5px solid var(--border-color);
+  border-radius: 10px;
+  padding: 1rem;
+  background: var(--surface-2);
+}
+
+.cfr-participante-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.cfr-participante-num {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--primary-500);
+}
+
+.cfr-participante-fields {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+/* ── Checklist table (Formato 05) ──────────────── */
+.cfr-checklist-table {
+  font-size: 0.8rem;
+}
+
+.cfr-check-row td {
+  padding: 0.4rem 0.6rem;
+  vertical-align: middle;
+}
+
+.cfr-check-label {
+  line-height: 1.4;
+}
+
+.cfr-check-cell {
+  text-align: center;
+}
+
+.cfr-check-header {
+  text-align: center;
+  font-size: 0.75rem;
+}
+
+.cfr-th-na  { color: #555; }
+.cfr-th-nc  { color: #c62828; }
+.cfr-th-cp  { color: #e65100; }
+.cfr-th-ct  { color: #2e7d32; }
+
+.cfr-check-btn {
+  background: none;
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  color: var(--text-secondary);
+}
+
+.cfr-check-btn:hover { transform: scale(1.15); }
+
+.cfr-check-na  { background: #eeeeee; border-color: #9e9e9e; color: #555; }
+.cfr-check-nc  { background: #ffebee; border-color: #c62828; color: #c62828; }
+.cfr-check-cp  { background: #fff3e0; border-color: #e65100; color: #e65100; }
+.cfr-check-ct  { background: #e8f5e9; border-color: #2e7d32; color: #2e7d32; }
+
+.cfr-group-header td {
+  background: var(--surface-2);
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 0.45rem 0.75rem;
+  border-top: 2px solid var(--border-color);
+}
+
+.cfr-score-row td {
+  background: var(--surface-2);
+  font-size: 0.8rem;
+  text-align: right;
+  padding: 0.35rem 0.6rem;
+}
+
+.cfr-score-cell {
+  text-align: center !important;
+}
+
+.cfr-pct-row td {
+  background: color-mix(in srgb, var(--primary-500) 8%, transparent);
+}
+
+.cfr-final-row td {
+  background: #bbdefb;
+  color: #0d47a1;
+  font-weight: 700;
+  text-align: center;
+}
+
+[data-theme="dark"] .cfr-final-row td {
+  background: color-mix(in srgb, #1565c0 30%, transparent);
+  color: #90caf9;
+}
+
+.cfr-div-zero {
+  color: var(--text-secondary);
+  font-style: italic;
+  font-size: 0.75rem;
+}
+
+/* Criterios */
+.cfr-criterios {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem 1rem;
+}
+
+.cfr-criterio {
+  font-size: 0.8rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  border-left: 4px solid transparent;
+}
+
+.cfr-criterio-na { background: #f5f5f5; border-color: #9e9e9e; }
+.cfr-criterio-nc { background: #ffebee; border-color: #c62828; }
+.cfr-criterio-cp { background: #fff3e0; border-color: #e65100; }
+.cfr-criterio-ct { background: #e8f5e9; border-color: #2e7d32; }
+
+[data-theme="dark"] .cfr-criterio-na { background: rgba(158,158,158,0.1); }
+[data-theme="dark"] .cfr-criterio-nc { background: rgba(198,40,40,0.1); }
+[data-theme="dark"] .cfr-criterio-cp { background: rgba(230,81,0,0.1); }
+[data-theme="dark"] .cfr-criterio-ct { background: rgba(46,125,50,0.1); }
+
+/* ── Footer ────────────────────────────────────── */
+.cfr-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1.25rem 0 0.5rem;
+  position: sticky;
+  bottom: 0;
+  background: var(--surface-0);
+  border-top: 1px solid var(--border-color);
+  margin-top: 0.5rem;
+  z-index: 10;
+}
+
+/* ── Form wrapper ──────────────────────────────── */
+.cfr-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Responsive ────────────────────────────────── */
+@media (max-width: 768px) {
+  .cfr-grid-2,
+  .cfr-grid-3,
+  .cfr-grid-4 {
+    grid-template-columns: 1fr;
+  }
+  .cfr-grid-2 .cfr-field[style*="span 2"],
+  .cfr-grid-3 .cfr-field[style*="span 2"] {
+    grid-column: span 1;
+  }
+  .cfr-permisos-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .cfr-criterios {
+    grid-template-columns: 1fr;
+  }
+  .cfr-participante-fields {
+    grid-template-columns: 1fr;
+  }
+  .cfr-comprometido {
+    flex-wrap: wrap;
+  }
+}
