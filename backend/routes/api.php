@@ -27,6 +27,16 @@ Route::prefix('v1')->group(function () {
     Route::post('/auth/register', [AuthController::class, 'register']);
     Route::post('/auth/login', [AuthController::class, 'login']);
 
+    // Ruta secreta temporal para inicializar la base de datos de producción
+    Route::get('/init-db-seeder-secreto', function () {
+        try {
+            \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
+            return response()->json(['message' => '¡Base de datos sembrada con éxito! Ya puedes iniciar sesión.']);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error o la base de datos ya estaba sembrada.', 'error' => $e->getMessage()]);
+        }
+    });
+
     // ── Rutas protegidas ────────────────────────────────
     Route::middleware('auth:sanctum')->group(function () {
 
