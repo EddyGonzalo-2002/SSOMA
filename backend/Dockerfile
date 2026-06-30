@@ -34,7 +34,7 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 EXPOSE 80
 
 # Script de inicio: crear link de storage, generar .env de forma segura, correr migraciones e iniciar Apache
-RUN echo '#!/bin/bash\necho "APP_NAME=\"\${APP_NAME}\"" > /var/www/html/.env\necho "APP_ENV=\${APP_ENV}" >> /var/www/html/.env\necho "APP_KEY=\"\${APP_KEY}\"" >> /var/www/html/.env\necho "APP_DEBUG=\${APP_DEBUG}" >> /var/www/html/.env\necho "APP_URL=\${APP_URL}" >> /var/www/html/.env\necho "DB_CONNECTION=\${DB_CONNECTION}" >> /var/www/html/.env\necho "DATABASE_URL=\"\${DATABASE_URL}\"" >> /var/www/html/.env\nphp artisan storage:link\nphp artisan migrate --force\napache2-foreground' > /usr/local/bin/start.sh
+RUN echo '#!/bin/bash\necho "APP_NAME=\"\${APP_NAME}\"" > /var/www/html/.env\necho "APP_ENV=\${APP_ENV}" >> /var/www/html/.env\necho "APP_KEY=\"\${APP_KEY}\"" >> /var/www/html/.env\necho "APP_DEBUG=\${APP_DEBUG}" >> /var/www/html/.env\necho "APP_URL=\${APP_URL}" >> /var/www/html/.env\necho "DB_CONNECTION=\${DB_CONNECTION}" >> /var/www/html/.env\necho "DB_URL=\"\${DATABASE_URL}\"" >> /var/www/html/.env\nphp artisan storage:link\nphp artisan migrate --force\nchown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/.env\napache2-foreground' > /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 
 CMD ["/usr/local/bin/start.sh"]
