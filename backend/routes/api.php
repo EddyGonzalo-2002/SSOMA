@@ -32,6 +32,15 @@ Route::prefix('v1')->group(function () {
         return "pong, Laravel está vivo!";
     });
 
+    // Ruta para ver los logs de error (TEMPORAL PARA DEBUGGING)
+    Route::get('/logs', function () {
+        $path = storage_path('logs/laravel.log');
+        if (!file_exists($path)) {
+            return "No log file found at: " . $path;
+        }
+        return response(file_get_contents($path))->header('Content-Type', 'text/plain');
+    });
+
     // Ruta secreta temporal para inicializar la base de datos de producción
     Route::get('/init-db-seeder-secreto', function () {
         try {
